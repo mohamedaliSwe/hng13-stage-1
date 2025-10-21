@@ -1,6 +1,6 @@
 """Performs String Analysis"""
 import hashlib
-from string_analyzer.models.string_models import TextAnalysisModel
+from models.string_models import TextAnalysisModel
 
 
 def is_palindrome(text: str) -> bool:

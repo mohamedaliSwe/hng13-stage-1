@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from .routes import route
+from routes.route import router
 
 
 app = FastAPI(title="String Analyzer",
@@ -7,4 +7,4 @@ app = FastAPI(title="String Analyzer",
               )
 
 
-app.include_router(route.router)
+app.include_router(router)
