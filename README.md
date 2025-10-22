@@ -41,11 +41,7 @@ pip install -r requirements.txt
 4. Configure Environment Variables
 
 ```.env
-MONGO_USERNAME
-MONGO_PASSWORD
-MONGO_HOST
-MONGO_PORT
-MONGO_DB
+MONGO_URL
 ```
 
 5. Run the Application

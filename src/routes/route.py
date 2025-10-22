@@ -1,10 +1,10 @@
 from datetime import datetime
 from typing import Optional
 from fastapi import APIRouter, HTTPException, Query, status
-from services.string_analysis import analyze_string, sha256_hash
-from services.nlp_filter import filter_nlp
-from models.string_models import TextResponseModel, TextBaseModel
-from models.db import string_collection
+from src.services.string_analysis import analyze_string, sha256_hash
+from src.services.nlp_filter import filter_nlp
+from src.models.string_models import TextResponseModel, TextBaseModel
+from src.models.db import string_collection
 
 
 router = APIRouter(prefix='/strings', tags=['Strings'])
