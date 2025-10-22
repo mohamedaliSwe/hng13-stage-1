@@ -10,7 +10,7 @@ from src.models.db import string_collection
 router = APIRouter(prefix='/strings', tags=['Strings'])
 
 
-@router.post('/', response_model=TextResponseModel, status_code=status.HTTP_201_CREATED)
+@router.post('', response_model=TextResponseModel, status_code=status.HTTP_201_CREATED)
 def string_analysis(input: TextBaseModel):
 
     # Check if the value is provided in input
@@ -50,22 +50,7 @@ def string_analysis(input: TextBaseModel):
     return response
 
 
-@router.get('/{string_value}', response_model=TextResponseModel, status_code=status.HTTP_200_OK)
-def get_specific_string(string_value: str):
-    # Hash the input and check if it exists
-    text_hash = sha256_hash(string_value)
-    existing_text = string_collection.find_one({'id': text_hash})
-
-    # raise and error if response not found
-    if not existing_text:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail='String does not exist in the system'
-        )
-    return existing_text
-
-
-@router.get('/', status_code=status.HTTP_200_OK)
+@router.get('', status_code=status.HTTP_200_OK)
 def get_all_strings_filtered(
     is_palindrome: Optional[bool] = Query(None),
     min_length: Optional[int] = Query(None),
@@ -150,6 +135,21 @@ def filter_by_natural_language(query: str = Query(...)):
             "parsed_filters": filters,
         }
     }
+
+
+@router.get('/{string_value}', response_model=TextResponseModel, status_code=status.HTTP_200_OK)
+def get_specific_string(string_value: str):
+    # Hash the input and check if it exists
+    text_hash = sha256_hash(string_value)
+    existing_text = string_collection.find_one({'id': text_hash})
+
+    # raise and error if response not found
+    if not existing_text:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail='String does not exist in the system'
+        )
+    return existing_text
 
 
 @router.delete('/{string_value}', status_code=status.HTTP_204_NO_CONTENT)
